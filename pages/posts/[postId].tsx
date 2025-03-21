@@ -2,53 +2,55 @@ import { useRouter } from 'next/router';
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
 import * as React from 'react';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface PostDetailPageProps {
+export interface PostPageProps {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    post: any
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function PostDetailPage (props: PostDetailPageProps) {
+
+export default function PostDetailPage ({post}: PostPageProps) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const router = useRouter()
+    if(!post) return null;
   return (
     <div>
        <h1> Post Detail Page </h1>
 
-        <p>query: {JSON.stringify(router.query)}</p>
+        <p>{post.title}</p>
+        <p>{post.author}</p>
+        <p>{post.description}</p>
     </div>
   );
 }
 
-export interface PostListPageProps {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        posts: any[]
-    }
+
     
     export const getStaticPaths: GetStaticPaths = async () => {
-       
+       console.log('\nGET STATIC PROPS');
+       const response = await fetch('https://js-post-api.herokuapp.com/api/posts?_page=1')
+        const data = await response.json()
+        
         return{
-            paths: [
-                {params: {postId: '1'}},
-                {params: {postId: '2'}},
-                {params: {postId: '3'}},
-                {params: {postId: '4'}},
-            ],
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            paths: data.data.map((post: any) => ({params: {postId: post.id}})),
             fallback: false
         }
     }
     
-    export const getStaticProps: GetStaticProps<PostListPageProps> = async (context: GetStaticPropsContext) => {
+    export const getStaticProps: GetStaticProps<PostPageProps> = async (context: GetStaticPropsContext) => {
         console.log('\nGET STATIC PROPS', context.params?.postId)
+        const postsId = context.params?.postId
+        if(!postsId)return{ notFound:true }
     // server-side
     // build-time
     // console.log('static props')
-        const response = await fetch('https://js-post-api.herokuapp.com/api/posts?_page=1')
+        const response = await fetch(`https://js-post-api.herokuapp.com/api/posts/${postsId}`)
         const data = await response.json()
         // console.log(data)
     
         return {
             props: {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                posts: data.data.map((x: any) => ({ id: x.id, title: x.title })),
+                post: data
             },
         }
     }
