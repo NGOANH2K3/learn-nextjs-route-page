@@ -1,3 +1,4 @@
+import { EmotionCache } from "@emotion/cache";
 import { NextPage } from "next";
 import { AppProps } from "next/app";
 import { ReactElement, ReactNode } from "react";
@@ -11,5 +12,6 @@ export type NextPageWithLayout = NextPage & {
 }
 
 export type AppPropsWithLayout = AppProps & {
-    Component: NextPageWithLayout
+    Component: NextPageWithLayout;
+    emotionCache?: EmotionCache
 }
