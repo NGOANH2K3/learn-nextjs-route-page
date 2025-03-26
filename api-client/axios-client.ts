@@ -9,7 +9,8 @@ import axios from "axios"
     })
 
     axiosClient.interceptors.response.use(
-        function (response) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        function (response:any) {
         return response.data
         },
         function (error){

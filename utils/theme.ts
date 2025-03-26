@@ -16,6 +16,7 @@ export const theme = createTheme({
       main: '#FF6464',
     },
     secondary: {
+      light: '#EDF7FA',
       main: '#00ABCC',
     },
     error: {
@@ -23,7 +24,59 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: roboto.style.fontFamily,
+    fontFamily: 'Heebo, sans-serif',
+  },
+
+  components:{
+    MuiContainer:{
+      defaultProps: {
+        maxWidth: "md",
+      },
+      styleOverrides:{
+        maxWidthMd : {
+          maxWidth: '860px',
+
+          '@media (min-width: 900px)': {
+                maxWidth: '860px',
+              },
+      },
+        maxWidthSm: {
+          maxWidth: '680px',
+
+          '@media (min-width: 600px)': {
+                maxWidth: '680px',
+              },
+        },
+      },
+    },
+
+    MuiLink:{
+      defaultProps: {
+        underline: 'hover'
+      },
+      styleOverrides:{
+        root: {
+          color: 'black',
+
+          '&:hover, &.active': {
+            color: '#FF6464',
+          }
+        }
+      },
+    },
+
+    MuiButton:{
+      defaultProps:{},
+      styleOverrides: {},
+      variants: [
+        {
+          props: { variant: 'contained', color: 'primary' },
+          style: {
+            color: 'white',
+          }
+        }
+      ]
+    }
   },
 });
 
