@@ -1,5 +1,6 @@
 // import type { Metadata } from "next";
-import { HeroSection } from "@/components/home";
+import { Seo } from "@/components/common/SEO";
+import { FeaturedWork, HeroSection, RecentPosts } from "@/components/home";
 import { MainLayout } from "@/components/layouts";
 import { NextPageWithLayout } from "@/models";
 import { Box } from "@mui/material";
@@ -16,9 +17,16 @@ const  Home: NextPageWithLayout = () => {
     return (
      
       <Box>
-       
+          <Seo data={{
+            title: 'Learn NextJs with Me | ProCode',
+            description: 'Step by step tutorials to build a full CRUD website using NextJs for Beginner.  Eszy, Free and Interesting',
+            url: 'https://learn-nextjs-route-page.vercel.app',
+            thumbnaiUrl: 'https://res.cloudinary.com/dr3f1lp7e/image/upload/v1743069542/igmeTele_axfter.jpg',
+          }}/>
           <HeroSection/>
-          
+          <RecentPosts/>
+          <FeaturedWork/>
+         
       </Box>
 
     );

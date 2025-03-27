@@ -16,12 +16,15 @@ export const theme = createTheme({
       main: '#FF6464',
     },
     secondary: {
-      light: '#EDF7FA',
+      light: '#c6e9f3',
       main: '#00ABCC',
     },
     error: {
       main: red.A400,
     },
+    text: {
+      primary: '#21243D'
+    }
   },
   typography: {
     fontFamily: 'Heebo, sans-serif',
@@ -76,8 +79,35 @@ export const theme = createTheme({
           }
         }
       ]
+    },
+
+    MuiChip:{
+      styleOverrides: {
+        root: {
+          paddingInline: 4,
+
+        }
+      },
+      variants: [
+        {
+          props: { color: 'secondary'},
+          style: {
+            color: 'white',
+            backgroundColor: '#142805',
+            fontSize: 16,
+            fontWeight: 'bold'
+          }
+        }
+      ]
     }
   },
-});
+})
+
+theme.typography.h3 = {
+  fontSize: '2rem',
+  [theme.breakpoints.up('md')]:{
+    fontSize: '3rem',
+  }
+}
 
 

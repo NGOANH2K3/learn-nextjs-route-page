@@ -9,12 +9,12 @@ export function HeaderDesktop () {
 
 
   return (
-    <Box display={{sx: 'none' , md: 'block'}} py={2}>
+    <Box display={{xs: 'none' , md: 'block'}} py={2}>
         <Container>
             <Stack direction='row' justifyContent='flex-end'>
                 {ROUTE_LIST.map(( route )=>(
                     <Link key={route.path} href={route.path} passHref>
-                        <MuiLink sx={{ml: 2}} className={clsx({active: router.pathname === route.path})}>
+                        <MuiLink component={'span'} sx={{ml: 2}} className={clsx({active: router.pathname === route.path})}>
                             {route.label}
                         </MuiLink>
                     </Link>
