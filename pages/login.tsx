@@ -4,6 +4,7 @@ import { useAuth } from '@/hooks';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { authApi } from '@/api-client';
 import { useRouter } from 'next/router';
+import { LoginForm } from '@/components/auth';
 
 export default function loginPage () {
     
@@ -57,6 +58,8 @@ export default function loginPage () {
       <button className={Styles.btnlogout} onClick={handleLogoutClick}>Logout</button>
       <button onClick={()=> router.push("/about")}>Go to about</button>
       </div>
+
+      <LoginForm />
     </div>
   );
 }

@@ -7,6 +7,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider } from '@mui/material/styles'
 import { SWRConfig } from 'swr'
 import '../styles/globals.css'
+import '../styles/prism.css'
 const clientSideEmotionCache = createEmotionCache()
 
 function MyApp({Component, pageProps, emotionCache= clientSideEmotionCache}: AppPropsWithLayout){

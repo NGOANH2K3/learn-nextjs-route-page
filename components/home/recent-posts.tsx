@@ -9,15 +9,17 @@ export function RecentPosts () {
     const postList: Post[] = [
         {
             id: '1',
+            slug: '',
             title: 'Khóa học java - từ A-Z',
-            publishedDate: '1743045786405',
+            publishedDate: '2025-03-28T02:00:00Z',
             tagList: ['FullStack', 'BackEnd'],
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor consequatur non alias iusto qui pariatur nisi, officiis explicabo repellendus perferendis cumque placeat, officia optio nesciunt tenetur, laboriosam tempore fuga eum.',
         },
         {
             id: '2',
+            slug: '',
             title: 'Khóa học Nextjs & Typescript - từ A-Z',
-            publishedDate: '1743045786405',
+            publishedDate: '2025-03-28T02:00:00Z',
             tagList: ['FontEnd', 'Rest-API'],
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor consequatur non alias iusto qui pariatur nisi, officiis explicabo repellendus perferendis cumque placeat, officia optio nesciunt tenetur, laboriosam tempore fuga eum.',
         },

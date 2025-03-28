@@ -9,8 +9,12 @@ export interface PostPageProps {
 
 
 export default function PostDetailPage ({post}: PostPageProps) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
     const router = useRouter()
+    if (router.isFallback){
+        return <div style={{fontSize: '2rem', textAlign: 'center'}}>Loading...</div>
+    }
+
     if(!post) return null;
   return (
     <div>
@@ -33,7 +37,7 @@ export default function PostDetailPage ({post}: PostPageProps) {
         return{
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             paths: data.data.map((post: any) => ({params: {postId: post.id}})),
-            fallback: false
+            fallback: true
         }
     }
     
@@ -52,5 +56,6 @@ export default function PostDetailPage ({post}: PostPageProps) {
             props: {
                 post: data
             },
+            revalidate: 300,
         }
     }

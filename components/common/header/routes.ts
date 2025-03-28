@@ -9,6 +9,6 @@ export const ROUTE_LIST = [
     },
     {
         label: 'Blog',
-        path: '/blog',
+        path: '/blogs',
     },
 ]
