@@ -6,7 +6,7 @@ export interface HeaderProps {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function Header (props: HeaderProps) {
+export default function Header (props: HeaderProps) {
 
   return (
     <>

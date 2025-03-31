@@ -1,7 +1,11 @@
-import { Footer, Header } from '@/components/common';
+import { Footer} from '@/components/common';
 import { LayoutProps } from '@/models/index';
 import { Box, Stack } from '@mui/material';
 // import { useEffect } from 'react';
+
+import dynamic from 'next/dynamic';
+
+const Header = dynamic(() => import('../common/header') , {ssr: false})
 
 export function MainLayout ({children}: LayoutProps) {
     // useEffect(()=>{

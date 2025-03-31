@@ -34,7 +34,7 @@ export function RecentPosts () {
             alignItems={'center'}
         >
             <Typography variant='h5'>Recent Posts</Typography>
-            <Link href={'/blog'} passHref>
+            <Link href={'/blogs'} passHref>
                 <MuiLink component={'span'} sx={{display: {xs:'none', md: 'inline-block'}}}>
                     View all
                 </MuiLink>

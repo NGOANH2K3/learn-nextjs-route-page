@@ -1,5 +1,5 @@
 import axios from "axios"
-
+import { AxiosError } from "axios";
 
     const axiosClient = axios.create({
         baseURL: '/api',
@@ -13,8 +13,8 @@ import axios from "axios"
         function (response:any) {
         return response.data
         },
-        function (error){
-            return Promise.reject(error)
+        function (error: AxiosError){
+            return Promise.reject(error.response?.data)
         }
     )
 

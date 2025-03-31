@@ -1,5 +1,5 @@
 // import Header from '@/components/header';
-import { Header } from '@/components/common';
+import Header from '@/components/common/header';
 import { AdminLayout } from '@/components/layouts';
 import { Box, Button, Typography } from '@mui/material';
 // import dynamic from 'next/dynamic';

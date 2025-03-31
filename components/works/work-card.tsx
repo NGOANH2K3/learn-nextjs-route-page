@@ -24,7 +24,7 @@ export function WorkCard ({work}: WorkCardProps) {
         </Typography>
 
         <Stack direction={'row'} my={2}>
-            <Chip color='secondary' label= {work.createAt} size='small'/>
+            <Chip color='secondary' label={new Date(Number.parseInt(work.createAt)).getFullYear()}  size='small'/>
             <Typography ml={3} color='GrayText'>{work.tagList.join(', ')}</Typography>
         </Stack>
 

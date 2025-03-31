@@ -6,18 +6,28 @@ export type InputFieldProps = TextFieldProps & {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     control: Control<any>
 }
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function InputField ({name, label, control, onChange: externalOnChange, onBlur: externalOnBlur, ref: externalRef, value: externalValue, ...rest}: InputFieldProps) {
+export function InputField ({
+        name,
+        control, 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        onChange: externalOnChange, 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        onBlur: externalOnBlur, 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        ref: externalRef, 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        value: externalValue, 
+        ...rest}: InputFieldProps) {
     const {
         
         field: { onChange, onBlur, value, ref},
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         fieldState: {error}
     } = useController({
         name,
         control
     })
+
+ // render whatever you want: MUI, Ant Design, Bootstrap, Custom ui
   return (
     <TextField
         fullWidth
@@ -28,6 +38,8 @@ export function InputField ({name, label, control, onChange: externalOnChange, o
         onChange={onChange}
         onBlur={onBlur}
         inputRef={ref}
+        error= {!!error}
+        helperText= {error?.message}
         {...rest}
     />
   );

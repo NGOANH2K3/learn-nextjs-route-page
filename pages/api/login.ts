@@ -29,6 +29,11 @@ export default function handler( req: NextApiRequest,res: NextApiResponse<Data>)
             });
             proxyRes.on('end', ()=> {
                 try {
+                    const isSuccess = proxyRes.statusCode && proxyRes.statusCode >= 200 && proxyRes.statusCode < 300 
+                    if(!isSuccess) {
+                        (res as NextApiResponse).status(proxyRes.statusCode || 500).json(body);
+                        return resolve(true)
+                    }
                     const { accessToken, expiredAt }= JSON.parse(body);
 
                     //convert token to cookies
@@ -39,7 +44,7 @@ export default function handler( req: NextApiRequest,res: NextApiResponse<Data>)
                         expires: new Date(expiredAt),
                     });
 
-                    (res as NextApiResponse).status(200).json({ message: 'Login successful' });
+                    (res as NextApiResponse).status(400).json({ message: 'wrong username or password' });
                 } catch (error) {
                     console.error('Error parsing response:', error);
                     (res as NextApiResponse).status(500).json({ message: 'Internal Server Error' });

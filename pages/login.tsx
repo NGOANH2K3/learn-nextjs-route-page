@@ -1,30 +1,33 @@
-import * as React from 'react';
-import  Styles  from '@/styles/login.module.css'
 import { useAuth } from '@/hooks';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { authApi } from '@/api-client';
-import { useRouter } from 'next/router';
 import { LoginForm } from '@/components/auth';
+import { loginPayload } from '@/models';
+import { Box, Paper, Typography } from '@mui/material';
+import { useRouter } from 'next/router';
+import { getErrorMessage } from '@/utils';
+import { toast } from 'react-toastify';
 
 export default function loginPage () {
     
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const router = useRouter()
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const {profile, login, logout} = useAuth({
+    const { login } = useAuth({
         revalidateOnMount: false,
     })
 
-    async function handleLoginClick(){
-        try{
-            await login()
-            console.log('redirect to dashboard')
-            router.push('/about')
-        }
-        catch (error){
-            console.log('failed to login', error);
-        }
-    }
+    // async function handleLoginClick(){
+    //     try{
+    //         await login({
+    //             username: 'test',
+    //             password: '123456',
+    //         })
+    //         console.log('redirect to dashboard')
+    //         router.push('/about')
+    //     }
+    //     catch (error){
+    //         console.log('failed to login', error);
+    //     }
+    // }
 
     // async function handleGetProfileClick(){
     //     try{
@@ -32,34 +35,45 @@ export default function loginPage () {
     //         console.log('redirect to login page')
     //     }
     //     catch (error) {
-    //         console.log('failed to get profile', error);
+    //            console.log('failed to get profile', error);
     //     }
     // }
 
-    async function handleLogoutClick(){
+    // async function handleLogoutClick(){
+    //     try {
+    //         await logout()
+    //         console.log('redirect to login page')
+    //     }
+    //     catch (error) {
+    //         console.log('failed to logout', error);
+    //     }
+    // }
+
+    async function handleLoginSubmit(payload: loginPayload){
         try {
-            await logout()
-            console.log('redirect to login page')
+            await login(payload)
+            // console.log('redirect to login page')
+            router.push('/')
         }
         catch (error) {
-            console.log('failed to logout', error);
+            const massage = getErrorMessage(error)
+            console.log('failed to logout', massage);
+            toast.error(massage)
         }
     }
 
   return (
-    <div className={Styles.login}>
-      <h1 className={Styles.header}>Login Page</h1>
-
-      <p>Profile: {JSON.stringify(profile || {},null, 4)}</p>
-
-      <div className={Styles.btn}>
-      <button className={Styles.btnlogin} onClick={handleLoginClick}>Login</button>
-      {/* <button className={Styles.btnlogin} onClick={handleGetProfileClick}>Login</button> */}
-      <button className={Styles.btnlogout} onClick={handleLogoutClick}>Logout</button>
-      <button onClick={()=> router.push("/about")}>Go to about</button>
-      </div>
-
-      <LoginForm />
-    </div>
+    <Box height={'90vh'}>
+        <Paper elevation={4} sx={{
+            mx: 'auto',
+            mt: 8,
+            p: 4,
+            maxWidth: '480px',
+            textAlign: 'center',
+        }}>
+            <Typography component={'h1'} variant='h4' mt={3}>Login Page</Typography>
+            <LoginForm  onSubmit={handleLoginSubmit} />
+        </Paper>
+    </Box>
   );
 }
