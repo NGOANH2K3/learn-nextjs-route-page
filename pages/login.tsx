@@ -15,49 +15,14 @@ export default function loginPage () {
         revalidateOnMount: false,
     })
 
-    // async function handleLoginClick(){
-    //     try{
-    //         await login({
-    //             username: 'test',
-    //             password: '123456',
-    //         })
-    //         console.log('redirect to dashboard')
-    //         router.push('/about')
-    //     }
-    //     catch (error){
-    //         console.log('failed to login', error);
-    //     }
-    // }
-
-    // async function handleGetProfileClick(){
-    //     try{
-    //         await logout()
-    //         console.log('redirect to login page')
-    //     }
-    //     catch (error) {
-    //            console.log('failed to get profile', error);
-    //     }
-    // }
-
-    // async function handleLogoutClick(){
-    //     try {
-    //         await logout()
-    //         console.log('redirect to login page')
-    //     }
-    //     catch (error) {
-    //         console.log('failed to logout', error);
-    //     }
-    // }
-
     async function handleLoginSubmit(payload: loginPayload){
         try {
             await login(payload)
             // console.log('redirect to login page')
             router.push('/')
         }
-        catch (error) {
+        catch (error: unknown) {
             const massage = getErrorMessage(error)
-            console.log('failed to logout', massage);
             toast.error(massage)
         }
     }

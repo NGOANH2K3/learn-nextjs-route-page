@@ -1,4 +1,5 @@
 import { TextField, TextFieldProps } from '@mui/material';
+import { ChangeEvent } from 'react';
 import { Control, useController } from 'react-hook-form';
 
 export type InputFieldProps = TextFieldProps & {
@@ -9,7 +10,6 @@ export type InputFieldProps = TextFieldProps & {
 export function InputField ({
         name,
         control, 
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         onChange: externalOnChange, 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         onBlur: externalOnBlur, 
@@ -18,8 +18,8 @@ export function InputField ({
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         value: externalValue, 
         ...rest}: InputFieldProps) {
+
     const {
-        
         field: { onChange, onBlur, value, ref},
         fieldState: {error}
     } = useController({
@@ -35,7 +35,10 @@ export function InputField ({
         margin='normal'
         name={name}
         value={value}
-        onChange={onChange}
+        onChange={(event: ChangeEvent<HTMLInputElement>)=>{
+            onChange(event)
+            externalOnChange?.(event)
+        }}
         onBlur={onBlur}
         inputRef={ref}
         error= {!!error}

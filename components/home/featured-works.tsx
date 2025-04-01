@@ -13,7 +13,7 @@ export function FeaturedWork () {
             tagList: ['FullStack'],
             shortDescription: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor consequatur non alias iusto qui pariatur nisi, officiis explicabo repellendus perferendis cumque placeat, officia optio nesciunt tenetur, laboriosam tempore fuga eum.',
             fullDescription: '',
-            thumbnaiUrl: 'https://res.cloudinary.com/dr3f1lp7e/image/upload/v1743059372/item01_d14crd.jpg',
+            thumbnailUrl: 'https://res.cloudinary.com/dr3f1lp7e/image/upload/v1743059372/item01_d14crd.jpg',
         },
         {
             id: '2',
@@ -23,7 +23,7 @@ export function FeaturedWork () {
             tagList: ['FontEnd'],
             shortDescription: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor consequatur non alias iusto qui pariatur nisi, officiis explicabo repellendus perferendis cumque placeat, officia optio nesciunt tenetur, laboriosam tempore fuga eum.',
             fullDescription: '',
-            thumbnaiUrl: 'https://res.cloudinary.com/dr3f1lp7e/image/upload/v1743059375/item02_akmn0u.jpg',
+            thumbnailUrl: 'https://res.cloudinary.com/dr3f1lp7e/image/upload/v1743059375/item02_akmn0u.jpg',
         },
         {
             id: '3',
@@ -33,7 +33,7 @@ export function FeaturedWork () {
             tagList: ['TikTok'],
             shortDescription: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor consequatur non alias iusto qui pariatur nisi, officiis explicabo repellendus perferendis cumque placeat, officia optio nesciunt tenetur, laboriosam tempore fuga eum.',
             fullDescription: '',
-            thumbnaiUrl: 'https://res.cloudinary.com/dr3f1lp7e/image/upload/v1743059376/item03_eemgel.jpg',
+            thumbnailUrl: 'https://res.cloudinary.com/dr3f1lp7e/image/upload/v1743059376/item03_eemgel.jpg',
         },
     ]
 

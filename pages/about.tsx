@@ -24,10 +24,11 @@ export default function AboutPage (props: AboutPageProps) {
   )
 }
 AboutPage.Layout = AdminLayout
-// const async function getStaticProps() {
-//   console.log('get static props')
-//   return {
-//     props: {}
-//   }
-// }
+
+export async function getStaticProps() {
+  console.log('get static props')
+  return {
+    props: {}
+  }
+}
 

@@ -12,9 +12,10 @@ export function WorkCard ({work}: WorkCardProps) {
     <Stack direction={{xs:'column', md: 'row'}} spacing={2}>
       <Box width={{xs: '100%', md:'240px'}}  height={{ xs: "240px", md: "180px" }} position="relative" flexShrink={0}>
         <Image 
-            src={work.thumbnaiUrl} 
+            src={work.thumbnailUrl} 
             fill
             alt='thumb' 
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority
         />
       </Box>

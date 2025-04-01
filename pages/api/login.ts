@@ -44,7 +44,7 @@ export default function handler( req: NextApiRequest,res: NextApiResponse<Data>)
                         expires: new Date(expiredAt),
                     });
 
-                    (res as NextApiResponse).status(400).json({ message: 'wrong username or password' });
+                    (res as NextApiResponse).status(200).json({ message: 'Login Saccessfully' });
                 } catch (error) {
                     console.error('Error parsing response:', error);
                     (res as NextApiResponse).status(500).json({ message: 'Internal Server Error' });

@@ -6,5 +6,9 @@ export interface Work {
     fullDescription: string,
     createAt: string,
     updateAt: string,
-    thumbnaiUrl: string,
+    thumbnailUrl: string,
+}
+
+export interface WorkFiltersPayLoad {
+    search: string
 }
