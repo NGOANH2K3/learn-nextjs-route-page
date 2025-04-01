@@ -8,11 +8,11 @@ export interface AuthProps{
 }
 export function Auth ({ children }: AuthProps ) {
     const router = useRouter()
-    const {profile, firstLoading } = useAuth()
+    const {profile, fisrtLoading } = useAuth()
 
     useEffect(()=> {
-        if (!firstLoading && !profile?.username) router.push('/login')
-    }, [router, profile, firstLoading]) 
+        if (!fisrtLoading && !profile?.username) router.push('/login')
+    }, [router, profile, fisrtLoading]) 
 
     if (!profile?.username) return <p>Loading...</p>
 
