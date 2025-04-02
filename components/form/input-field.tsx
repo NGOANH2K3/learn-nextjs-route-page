@@ -1,13 +1,12 @@
 import { TextField, TextFieldProps } from '@mui/material';
 import { ChangeEvent } from 'react';
-import { Control, useController } from 'react-hook-form';
+import { Control, FieldValues, Path, useController } from 'react-hook-form';
 
-export type InputFieldProps = TextFieldProps & {
-    name: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    control: Control<any>
+export type InputFieldProps<N extends FieldValues> = TextFieldProps & {
+    name: Path<N>
+    control: Control<N>
 }
-export function InputField ({
+export function InputField<N extends FieldValues> ({
         name,
         control, 
         onChange: externalOnChange, 
@@ -17,7 +16,7 @@ export function InputField ({
         ref: externalRef, 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         value: externalValue, 
-        ...rest}: InputFieldProps) {
+        ...rest}: InputFieldProps<N>) {
 
     const {
         field: { onChange, onBlur, value, ref},

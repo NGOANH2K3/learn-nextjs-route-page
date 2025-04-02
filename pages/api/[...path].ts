@@ -11,7 +11,7 @@ export const config = {
 const proxy = httpProxy.createProxyServer()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function handler( req: NextApiRequest,res: NextApiResponse<any>) {
-    return new Promise((resolve)=> {
+    return new Promise(()=> {
         // convert cookies to header Authorization 
         const cookies = new Cookies(req, res)
         const accessToken = cookies.get('access_token')
@@ -31,8 +31,6 @@ export default function handler( req: NextApiRequest,res: NextApiResponse<any>) 
         })
         // res.status(200).json({ name: 'Path - Match all here' })
 
-        proxy.once('proxyRes',()=>{
-            resolve(true)
-        })
+        
     })
 }

@@ -1,11 +1,10 @@
 import { MainLayout } from '@/components/layouts';
 import { WorkList } from '@/components/works';
 import { WorkFilters } from '@/components/works/work-filters';
-import { useWorkList } from '@/hooks';
-import { ListParams, WorkFiltersPayLoad } from '@/models';
-import { Box, Container, Pagination, Skeleton, Stack, Typography } from '@mui/material';
+import { useWorkListInfinity } from '@/hooks/use-work-list-infinity';
+import { ListParams, ListResponse, Work, WorkFiltersPayLoad } from '@/models';
+import { Box, Button, Container, Skeleton, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import React from 'react';
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface WorksPageProps {
 }
@@ -14,36 +13,28 @@ export interface WorksPageProps {
 export default function WorksPage (props: WorksPageProps) {
   const route = useRouter()
   const filters: Partial<ListParams>= {
-    _page:1,
-    _limit:3,
     ...route.query
   }
 
   const initFiltersPayload: WorkFiltersPayLoad = {
     search: filters.title_like || '',
-    tagList_like: '',
     selectedTagList: filters.tagList_like?.split('|') || [],
   }
 
 
-  const {data, isLoading} = useWorkList({params:filters, enabled: route.isReady})
-  const {_limit, _totalRows, _page} = data?.pagination || {}
-  const totalPage = Boolean(_totalRows) ? Math.ceil(_totalRows/_limit): 0
+ 
+  const {data, isLoading, isValidating, size, setSize} = useWorkListInfinity({params:filters, enabled: route.isReady})
+  console.log(data,isLoading, isValidating, size)
+
+  const workList: Array<Work> = data?.reduce((result: Array<Work>, currentPage: ListResponse<Work>)=> {
+    result.push(...currentPage.data)
+
+    return result
+  },[]) || []
+  // const {_limit, _totalRows, _page} = data?.pagination || {}
+  // const totalPage = Boolean(_totalRows) ? Math.ceil(_totalRows/_limit): 0
 
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    route.push(
-      {
-        pathname: route.pathname,
-        query: {
-          ... filters,
-          _page: value
-        },
-      },
-      undefined,
-      {shallow: true}
-    )
-  }
 
   function handleFilterChange(newFilter: WorkFiltersPayLoad) {
   route.push(
@@ -51,7 +42,6 @@ export default function WorksPage (props: WorksPageProps) {
       pathname: route.pathname,
       query: {
         ... filters,
-        _page: 1,
         title_like: newFilter.search,
         tagList_like: newFilter.tagList_like,
       },
@@ -70,14 +60,24 @@ export default function WorksPage (props: WorksPageProps) {
 
         {route.isReady ? (
           <WorkFilters initialValues={initFiltersPayload} onSubmit={handleFilterChange} />
-        ) : <Skeleton variant='rectangular' height={40} sx={{display:'inline-block', width:'100%', mt:2 , mb:1}}/>}
-        <WorkList workList={data?.data || []} loading={!route.isReady || isLoading} />
+        ) : (
+            <Skeleton 
+              variant='rectangular' 
+              height={40} 
+              sx={{
+                display:'inline-block',   
+                width:'100%', 
+                mt:2 , 
+                mb:1, 
+                verticalAlign:'middle'
+                }}
+              />
+            )}
 
-        {totalPage > 0  && (
-          <Stack alignItems={'center'} >
-            <Pagination count={totalPage} page={_page} onChange={handlePageChange}></Pagination>
-          </Stack>
-        )}
+        <WorkList workList={workList} loading={!route.isReady || isLoading} />
+        <Button variant='contained' onClick={()=> setSize((x)=> x+1)}>
+          Load More
+        </Button>
       </Container>
     </Box>
   );
