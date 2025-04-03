@@ -7,8 +7,7 @@ import { Box, Container, Pagination, Skeleton, Stack, Typography } from '@mui/ma
 import { useRouter } from 'next/router';
 import React from 'react';
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface WorksPageProps {
-}
+export interface WorksPageProps {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function WorksPage (props: WorksPageProps) {

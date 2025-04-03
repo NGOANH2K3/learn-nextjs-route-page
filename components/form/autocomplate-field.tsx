@@ -15,7 +15,7 @@ export type AutoComplateFieldProps<N, A extends FieldValues> = Partial<Autocompl
     label?: string
     options: N[]
     getOptionLabel: (option: N) => string 
-    onChange: (selectedOptions: N[]) => void
+    onChange?: (selectedOptions: N[]) => void
 }
 export function AutoComplateFirld<N, A extends FieldValues> ({
         name,

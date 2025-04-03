@@ -3,8 +3,9 @@ import { WorkList } from '@/components/works';
 import { WorkFilters } from '@/components/works/work-filters';
 import { useWorkListInfinity } from '@/hooks/use-work-list-infinity';
 import { ListParams, ListResponse, Work, WorkFiltersPayLoad } from '@/models';
-import { Box, Button, Container, Skeleton, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Container, Skeleton, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import {useInView} from 'react-intersection-observer'
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface WorksPageProps {
 }
@@ -23,18 +24,23 @@ export default function WorksPage (props: WorksPageProps) {
 
 
  
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {data, isLoading, isValidating, size, setSize} = useWorkListInfinity({params:filters, enabled: route.isReady})
-  console.log(data,isLoading, isValidating, size)
 
   const workList: Array<Work> = data?.reduce((result: Array<Work>, currentPage: ListResponse<Work>)=> {
     result.push(...currentPage.data)
 
     return result
   },[]) || []
-  // const {_limit, _totalRows, _page} = data?.pagination || {}
-  // const totalPage = Boolean(_totalRows) ? Math.ceil(_totalRows/_limit): 0
 
-
+  const totalRows = data?.[0]?.pagination?._totalRows || 0
+  const showLoadMore = totalRows > workList.length
+  const loadingMore = isValidating && workList.length > 0
+  const {ref} = useInView({
+    onChange(inView){
+      if(inView) setSize(x => x+1)
+    }
+  })
 
   function handleFilterChange(newFilter: WorkFiltersPayLoad) {
   route.push(
@@ -75,9 +81,11 @@ export default function WorksPage (props: WorksPageProps) {
             )}
 
         <WorkList workList={workList} loading={!route.isReady || isLoading} />
-        <Button variant='contained' onClick={()=> setSize((x)=> x+1)}>
-          Load More
-        </Button>
+        {showLoadMore && (
+          <Button ref={ref} variant='contained' onClick={()=> setSize((x)=> x+1)} disabled={loadingMore}>
+          Load More { loadingMore && <CircularProgress size={24}  />}
+        </Button> 
+        )}
       </Container>
     </Box>
   );
