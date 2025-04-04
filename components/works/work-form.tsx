@@ -9,11 +9,10 @@ import * as yup from 'yup'
 
 export interface WorkFormProps {
     initialValues?: Partial<WorkPayLoad>
-    onSubmit?: (payload: Partial<WorkPayLoad>) => void
+    onSubmit?: (payload: FormData) => void
 }
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function WorkForm({initialValues, onSubmit}: WorkFormProps) {
     const schema = yup.object({
         title: yup.string().required('Please enter work title'),
@@ -28,11 +27,11 @@ export function WorkForm({initialValues, onSubmit}: WorkFormProps) {
             return false
         })
         .test('test-size', 'Maximum size exceeded. Please select another file.',(value) => {
-            console.log('test-size', value);
-            if (!value || typeof value !== 'object' || !('file' in value)) {
-                return false; // Trả về false nếu value không hợp lệ
+            if (!value || typeof value !== 'object' || !('file' in value) || !(value.file instanceof File)) {
+                return false;
             }
-            const fileSize = (value as { file: File }).file.size || 0;
+
+            const fileSize = value?.file?.['size'] || 0
             const MB_TO_BYTES = 1024 * 1024
             const MAX_SIZE = 3 * MB_TO_BYTES
             return fileSize <= MAX_SIZE
@@ -57,13 +56,48 @@ export function WorkForm({initialValues, onSubmit}: WorkFormProps) {
         resolver: yupResolver(schema) as Resolver<Partial<WorkPayLoad>>,
     });
    
-    async function handleLoginSubmit(payload:Partial<WorkPayLoad>){    
-        
+    async function handleLoginSubmit(formValues:Partial<WorkPayLoad>){    
         // 1. turn selectedTagList into tagList_like (array to string using join())
         // 2. remove unused attr selectedTagList
-        if (!payload) return
-        console.log('form submit', payload);
-        // await onSubmit?.(payload) 
+        if (!formValues) return
+        
+        const payload = new FormData()
+
+        //id
+        if (formValues.id) {
+            payload.set('id',formValues.id)
+        };
+
+        //thumbnail
+        if( formValues.thumbnail?.file){
+            payload.set('thumbnail', formValues.thumbnail?.file)
+        };
+
+        // taglist
+        formValues.tagList?.forEach(tag => {
+            payload.append('taglist',tag)
+        });
+
+        // title, short description, full description
+        const keyList: Array<keyof Partial<WorkPayLoad>> = [
+            'title',
+            'shortDescription',
+            'fullDescription',
+        ];
+
+        keyList.forEach((name) => {
+            if(initialValues?.[name] !== formValues[name]) {
+                payload.set(name, formValues[name] as string )
+            }
+        })
+
+        console.log('form submit', formValues)
+
+        payload.forEach((value,key) => {
+            console.log(key, value)
+        })
+
+        await onSubmit?.(payload)
     }
 
 

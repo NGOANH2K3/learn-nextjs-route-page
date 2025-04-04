@@ -1,8 +1,10 @@
 import { MainLayout } from '@/components/layouts';
 import { WorkForm } from '@/components/works';
-import { useWorkDetail } from '@/hooks';
+import { useAddwork, useWorkDetail } from '@/hooks';
 import { Box, Container, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
+import { toast } from 'react-toastify';
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface AddEditWorksPageProps {}
 
@@ -12,13 +14,30 @@ export default function AddEditWorksPage (props: AddEditWorksPageProps) {
   const {workId} = route.query
   const isAddMode = workId === 'add'
   
-  const {data: workDetail, isLoading} = useWorkDetail({
+  const {data: workDetail, isLoading, updateWork} = useWorkDetail({
     workId: (workId as string ) || '',
     enabled: route.isReady && !isAddMode
     
   })
+  const addNewWork = useAddwork()
 
-  console.log({ workDetail, isLoading});
+  console.log({ workDetail, isLoading });
+
+  async function handleSubmit(payload:FormData) {
+    try{
+      if(isAddMode){
+        const newkork = await addNewWork(payload)
+        toast.success(`add new successfully, ${newkork?.id}`)
+      } else {
+        await updateWork(payload)
+        toast.success('update work successfully')
+      }
+
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
   
   return (
     <Box>
@@ -32,9 +51,10 @@ export default function AddEditWorksPage (props: AddEditWorksPageProps) {
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam, natus quidem. Magni, totam quos, animi amet delectus repellendus nulla, cum rem atque corporis adipisci accusamus repellat. Quam hic amet perspiciatis.
         </Box>
         <Box>
-          {(isAddMode || Boolean(workDetail)) && (<WorkForm initialValues={workDetail} onSubmit={() => {}}/>)}
+          {(isAddMode || Boolean(workDetail)) && (<WorkForm initialValues={workDetail} onSubmit={handleSubmit}/>)}
         </Box>
       </Container>
+      <Script src="https://widget.cloudinary.com/v2.0/global/all.js" strategy="afterInteractive" />
     </Box>
   );
 }
