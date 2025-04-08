@@ -8,8 +8,8 @@ export function FeaturedWork () {
         {
             id: '1',
             title: 'java ',
-            createAt: '1743045786405',
-            updateAt:'1743045786405',
+            createdAt: '1743045786405',
+            updatedAt:'1743045786405',
             tagList: ['FullStack'],
             shortDescription: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor consequatur non alias iusto qui pariatur nisi, officiis explicabo repellendus perferendis cumque placeat, officia optio nesciunt tenetur, laboriosam tempore fuga eum.',
             fullDescription: '',
@@ -18,8 +18,8 @@ export function FeaturedWork () {
         {
             id: '2',
             title: 'Nextjs & Typescript',
-            createAt: '1743045786405',
-            updateAt:'1743045786405',
+            createdAt: '1743045786405',
+            updatedAt:'1743045786405',
             tagList: ['FontEnd'],
             shortDescription: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor consequatur non alias iusto qui pariatur nisi, officiis explicabo repellendus perferendis cumque placeat, officia optio nesciunt tenetur, laboriosam tempore fuga eum.',
             fullDescription: '',
@@ -28,8 +28,8 @@ export function FeaturedWork () {
         {
             id: '3',
             title: 'ReactJs',
-            createAt: '1743045786405',
-            updateAt:'1743045786405',
+            createdAt: '1743045786405',
+            updatedAt:'1743045786405',
             tagList: ['TikTok'],
             shortDescription: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor consequatur non alias iusto qui pariatur nisi, officiis explicabo repellendus perferendis cumque placeat, officia optio nesciunt tenetur, laboriosam tempore fuga eum.',
             fullDescription: '',

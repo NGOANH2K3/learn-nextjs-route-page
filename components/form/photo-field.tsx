@@ -19,7 +19,7 @@ export function PhotoField<N extends FieldValues> ({
         fieldState: {error}
     } = useController({
         name,
-        control
+        control,
     })
 
     function handleFilterChange(e: ChangeEvent<HTMLInputElement>) {
@@ -50,7 +50,14 @@ export function PhotoField<N extends FieldValues> ({
         </Box>
 
         <FormHelperText error={!!error}>{error?.message}</FormHelperText>
-        <Box id={inputId} component={'input'} type='file' accept='image/*' onChange={handleFilterChange} hidden></Box>
+        <Box 
+            id={inputId} 
+            component={'input'} 
+            type='file' 
+            accept='image/*'
+             onChange={handleFilterChange} 
+             hidden>
+        </Box>
     </Box>
     
   );

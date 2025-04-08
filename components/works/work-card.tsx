@@ -1,6 +1,7 @@
 import { Work } from '@/models';
 import { Box, Chip, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
+import Link from 'next/link';
 import * as React from 'react';
 
 export interface WorkCardProps {
@@ -9,6 +10,7 @@ export interface WorkCardProps {
 
 export function WorkCard ({work}: WorkCardProps) {
   return (
+    <Link href={`/works/${work.id}/detail`} passHref>
     <Stack direction={{xs:'column', md: 'row'}} spacing={2}>
       <Box width={{xs: '100%', md:'240px'}}  height={{ xs: "240px", md: "180px" }} position="relative" flexShrink={0}>
         <Image 
@@ -25,12 +27,13 @@ export function WorkCard ({work}: WorkCardProps) {
         </Typography>
 
         <Stack direction={'row'} my={2}>
-            <Chip color='secondary' label={new Date(Number.parseInt(work.createAt)).getFullYear()}  size='small'/>
+            <Chip color='secondary' label={new Date(Number.parseInt(work.createdAt)).getFullYear()}  size='small'/>
             <Typography ml={3} color='GrayText'>{work.tagList.join(', ')}</Typography>
         </Stack>
 
         <Typography>{work.shortDescription}</Typography>
       </Box>
     </Stack>
+    </Link>
   );
 }

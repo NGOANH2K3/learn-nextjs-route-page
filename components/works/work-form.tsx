@@ -10,6 +10,10 @@ import * as yup from 'yup'
 export interface WorkFormProps {
     initialValues?: Partial<WorkPayLoad>
     onSubmit?: (payload: FormData) => void
+    thumbnail?: {
+        file: File | null
+        previewUrl?: string
+      } | null
 }
 
 
@@ -19,19 +23,18 @@ export function WorkForm({initialValues, onSubmit}: WorkFormProps) {
         shortDescription: yup.string().required('Please enter work description'),
         tagList: yup.array().of(yup.string()).min(1,'please select at least one category'),
         thumbnail: yup
-        .object()
+        .object({
+            file: yup.mixed<File>().nullable(),
+            previewUrl: yup.string().nullable(),
+        })
         .nullable()
         .test('test-required', 'Please select an image.',(value) => {
 
-            if(Boolean(initialValues?.id)|| Boolean(value as {field:File})) return true
+            if(Boolean(initialValues?.id) || Boolean(value?.file)) return true
             return false
         })
         .test('test-size', 'Maximum size exceeded. Please select another file.',(value) => {
-            if (!value || typeof value !== 'object' || !('file' in value) || !(value.file instanceof File)) {
-                return false;
-            }
-
-            const fileSize = value?.file?.['size'] || 0
+            const fileSize = value?.file?.size ?? 0
             const MB_TO_BYTES = 1024 * 1024
             const MAX_SIZE = 3 * MB_TO_BYTES
             return fileSize <= MAX_SIZE
@@ -75,7 +78,7 @@ export function WorkForm({initialValues, onSubmit}: WorkFormProps) {
 
         // taglist
         formValues.tagList?.forEach(tag => {
-            payload.append('taglist',tag)
+            payload.append('tagList',tag)
         });
 
         // title, short description, full description

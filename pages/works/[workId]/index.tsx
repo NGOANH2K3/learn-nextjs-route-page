@@ -25,19 +25,22 @@ export default function AddEditWorksPage (props: AddEditWorksPageProps) {
 
   async function handleSubmit(payload:FormData) {
     try{
+      let newWork = null
       if(isAddMode){
-        const newkork = await addNewWork(payload)
-        toast.success(`add new successfully, ${newkork?.id}`)
+        newWork = await addNewWork(payload)
+        toast.success(`add new successfully, ${newWork?.id}`)
       } else {
-        await updateWork(payload)
+        newWork = await updateWork(payload)
         toast.success('update work successfully')
       }
 
-      
+      route.push(`/works/${newWork?.id}/detail`)
     } catch (error) {
       console.log(error);
     }
   }
+
+  if (!route.isReady) return null
   
   return (
     <Box>
@@ -60,3 +63,4 @@ export default function AddEditWorksPage (props: AddEditWorksPageProps) {
 }
 
 AddEditWorksPage.Layout = MainLayout
+AddEditWorksPage.requireLogin = true

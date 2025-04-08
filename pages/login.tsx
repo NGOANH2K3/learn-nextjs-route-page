@@ -3,7 +3,7 @@ import { LoginForm } from '@/components/auth';
 import { loginPayload } from '@/models';
 import { Box, Paper, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import { getErrorMessage } from '@/utils';
+import { decodeUrl, getErrorMessage } from '@/utils';
 import { toast } from 'react-toastify';
 
 export default function loginPage () {
@@ -18,8 +18,8 @@ export default function loginPage () {
     async function handleLoginSubmit(payload: loginPayload){
         try {
             await login(payload)
-            // console.log('redirect to login page')
-            router.push('/')
+            const backTo = router.query?.back_to ? decodeUrl(router.query.back_to as string) : '/'
+            router.push(backTo)
         }
         catch (error: unknown) {
             const massage = getErrorMessage(error)

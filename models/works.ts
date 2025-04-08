@@ -4,15 +4,15 @@ export interface Work {
     tagList: string[],
     shortDescription: string,
     fullDescription: string,
-    createAt: string,
-    updateAt: string,
+    createdAt: string,
+    updatedAt: string,
     thumbnailUrl: string,
 }
 
 export interface WorkPayLoad extends Work {
    // ...
-   thumbnail: null | {
-    file: File | null
+    thumbnail: null | {
+    file: File | null; 
     previewUrl: string
    }
 }

@@ -8,7 +8,8 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
-export type AutoComplateFieldProps<N, A extends FieldValues> = Partial<AutocompleteProps<N, boolean, boolean, boolean > >& {
+export type AutoComplateFieldProps<N, A extends FieldValues> = Partial<AutocompleteProps<N, boolean, boolean, boolean > 
+>& {
     name: Path<A>
     control: Control<A>
     placeholder?: string
@@ -76,7 +77,7 @@ export function AutoComplateFirld<N, A extends FieldValues> ({
 
         onChange={(event, value)=> {
             onChange(value)
-            externalOnChange?.(value)
+            externalOnChange?.(value as N[])
         }}
         onBlur={onBlur}
         value={value}
